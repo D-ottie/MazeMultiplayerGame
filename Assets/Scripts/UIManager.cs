@@ -6,6 +6,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 using DilmerGames.Core.Singletons;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class UIManager : NetworkBehaviour
@@ -42,6 +43,11 @@ public class UIManager : NetworkBehaviour
         if(!IsServer) return;
         playersNum.Value = NetworkManager.Singleton.ConnectedClients.Count;
 
+    }
+
+    public void LoadMainScene()
+    {
+        SceneManager.LoadScene("MainScene");
     }
     
 }

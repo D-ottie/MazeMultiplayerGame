@@ -28,8 +28,7 @@ public class PlayerMovement : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-       transform.position = new Vector3(Random.Range(positionRange, -positionRange),0, Random.Range(positionRange, -positionRange));
-       transform.rotation = new Quarternion(0, 180, 0 0);
+       UpdatePositionServerRpc();
     }
 
     // Update is called once per frame
@@ -75,23 +74,12 @@ public class PlayerMovement : NetworkBehaviour
          m_Rigidbody.MovePosition(m_Rigidbody.position +m_Movement * m_Animator.deltaPosition.magnitude);
          m_Rigidbody.MoveRotation (m_Rotation);
     }
-
-   //  public void MoveLeft()
-   //  {
-   //     x = -1;
-   //  }
-
-   // public void MoveRight()
-   //  {
-   //     x = 1;
-   //  }
-   // public void MoveUp()
-   //  {
-   //     y = 1;
-   //  }
-   // public void MoveDown()
-   // {
-   //     y = -1;
-   // }
+   
+   [ServerRpc(RequireOwnership = false)]
+   private void UpdatePositionServerRpc()
+   {
+       transform.position = new Vector3(Random.Range(positionRange, -positionRange),0, Random.Range(positionRange, -positionRange));
+       transform.rotation = new Quaternion(0, 180, 0, 0);
+   }
         
 }
